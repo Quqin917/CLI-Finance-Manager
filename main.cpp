@@ -21,20 +21,13 @@
 */
 
 int main(int argc, char **argv) {
-
   if (argc > 1) {
     commandOption(argc, argv);
   }
 
   if (!newUserFlag) {
-
     std::cout << "Hello Old User\n";
-  
   }
-
-  
-
-
 
   return 0;
 }

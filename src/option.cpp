@@ -1,4 +1,3 @@
-#include "user.h"
 #include "option.h"
 
 void printHelp(char *arg, bool programExit = false) {
@@ -43,7 +42,7 @@ void commandOption(int argc, char **argv) {
         newUserFlag = true;
 
         if (optind >= argc) {
-          const userDatabase database{ getUserInput("Hosts"), getUserInput("Username: "), getUserInput("Password: ")};
+          const userDatabase database{ getUserInput("Hosts: "), getUserInput("Username: "), getPassword("Password: ")};
 
         } else if ( (argc - optind) == 3 ) {
           const userDatabase database{ argv[optind++], argv[optind++], argv[optind++] };
