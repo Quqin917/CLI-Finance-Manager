@@ -1,5 +1,6 @@
 #include "input_output.h"
 #include "user.h"
+#include "option.h"
 #include <iostream>
 
 /* 1. User input
@@ -14,20 +15,26 @@
  *      2. tell user if 
  * 
  * 
- *  3. Close Programj
+ *  3. Close Program
  *      1. if user choose to make file to be private
  *          1. encrypt user file to keep secret
 */
 
-int main(int argc, char* argv[]) {
-  if (argc == 1) {
-    std::cout << "for new user, close program then type 'finman.exe --new ${username} ${password}'\n";
-  } else if (argc != 4) {
-    std::cout << "Wrong commnad, type 'finman.exe --new ${username} ${password}'\n";
-    return 1;
+int main(int argc, char **argv) {
+
+  if (argc > 1) {
+    commandOption(argc, argv);
   }
 
-  const userDatabase database{ getUserInput("Username: "), getUserInput("Password: ")};
+  if (!newUserFlag) {
+
+    std::cout << "Hello Old User\n";
+  
+  }
+
+  
+
+
 
   return 0;
 }

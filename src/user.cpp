@@ -14,14 +14,23 @@
  *    1. decypher old file
 */
 
-userDatabase::userDatabase(std::string username, std::string password)
-  : d_username { username }
-  , d_password { password } {
-    nlohmann::json userData = {
-      {"username", username},
-      {"password", password}
+userDatabase::userDatabase( const std::string& _hosts, const std::string& _username, const std::string& _password )
+  : username { _username }
+  , hosts    { _hosts }
+  , password { _password } {
+    nlohmann::ordered_json data = {
+      {_hosts, {
+          {"username", _username},
+          {"password", _password},
+          {"active", true}
+      }}
     };
 
     std::ofstream file("database/user_data.json");
-    file << userData;
-  }
+    file << data.dump(2);
+    file.close();
+}
+
+void userDatabase::changeHost( const std::string& _host ) const { 
+  std::string oldHost = getHosts();
+}

@@ -1,14 +1,22 @@
-#pragma once
+#ifndef USER_H_
+#define USER_H_
 
 #include <iostream>
 
 class userDatabase {
 private:
-  std::string d_username;
-  std::string d_password;
+  std::string username;
+  std::string password;
+  std::string hosts;
 
 public:
-  userDatabase(std::string username, std::string password);
+  userDatabase( const std::string& _hosts,  const std::string& _username,  const std::string& _password);
 
-  std::string getUsername() const { return d_username; }
+  void changeHost( const std::string& _host ) const;
+
+  std::string getUsername() const { return this->username; }
+  std::string getHosts() const { return this->hosts; }
+
 };
+
+#endif
