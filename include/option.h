@@ -7,8 +7,10 @@
 #include <stdlib.h>
 #include <getopt.h>
 
+// Define a bool for new user
 bool newUserFlag = false;
 
+// Function to handle command-line options and arguments
 void commandOption(int argc, char **argv);
 
 #endif

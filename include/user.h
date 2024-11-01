@@ -5,18 +5,15 @@
 
 class userDatabase {
 private:
-  std::string username;
-  std::string password;
-  std::string hosts;
+  std::string username; // Stores the username of the user
+  std::string password; // Stores the password of the user
 
 public:
-  userDatabase( const std::string& _hosts,  const std::string& _username,  const std::string& _password);
-
-  void changeHost( const std::string& _host ) const;
-
+  // Constructor to initialize the username and password
+  userDatabase( const std::string& _username,  const std::string& _password);
+  
+  // Getter username
   std::string getUsername() const { return this->username; }
-  std::string getHosts() const { return this->hosts; }
-
 };
 
 #endif

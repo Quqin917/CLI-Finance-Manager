@@ -3,7 +3,8 @@
 #include "option.h"
 #include <iostream>
 
-/* 1. User input
+/* 
+ *  1. User input
  *      1. spending
  *          1. Record today date
  *          2. if user is spending ask the name of item and the price
@@ -12,7 +13,7 @@
  *  
  *  2. Budgets
  *      1. generate monthly expense ex. Rent, Groceries, Entertainment, and Savings based on earning
- *      2. tell user if 
+ *      2. tell user if there spending is over budget
  * 
  * 
  *  3. Close Program
@@ -21,11 +22,15 @@
 */
 
 int main(int argc, char **argv) {
+  // Check if there any command-line arguments passed 
   if (argc > 1) {
+    // Call function to handle command-line options and arguments 
     commandOption(argc, argv);
   }
 
+  // Check if the user is not a new user
   if (!newUserFlag) {
+    // Display a message for old user
     std::cout << "Hello Old User\n";
   }
 

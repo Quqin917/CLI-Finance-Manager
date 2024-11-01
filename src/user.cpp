@@ -14,23 +14,22 @@
  *    1. decypher old file
 */
 
-userDatabase::userDatabase( const std::string& _hosts, const std::string& _username, const std::string& _password )
+// Function to store username and password into a json file
+userDatabase::userDatabase( const std::string& _username, const std::string& _password )
   : username { _username }
-  , hosts    { _hosts }
   , password { _password } {
+    // Define the data that going to be inserted into a json file
     nlohmann::ordered_json data = {
-      {_hosts, {
-          {"username", _username},
+      {username, {
           {"password", _password},
           {"active", true}
       }}
     };
 
+    // Open a json file for writing the data
     std::ofstream file("database/user_data.json");
+
+    // Insert data into the json with a 2 space index beautification
     file << data.dump(2);
     file.close();
-}
-
-void userDatabase::changeHost( const std::string& _host ) const { 
-  std::string oldHost = getHosts();
 }
