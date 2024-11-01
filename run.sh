@@ -3,9 +3,18 @@ SRC_DIR="src"
 INC_DIR="include"
 LIB_DIR="library"
 BUILD_DIR="build"
+DATABASE_DIR="database"
 
 if [ ! -d $BUILD_DIR ]; then
   mkdir $BUILD_DIR
+fi
+
+if [ ! -d $DATABASE_DIR ]; then
+  mkdir $DATABASE_DIR
+fi
+
+if [ ! -f $DATABASE_DIR/user_data.json ]; then
+  echo -n >$DATABASE_DIR/user_data.json
 fi
 
 # Compile the object file
