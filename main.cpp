@@ -22,15 +22,16 @@
 */
 
 int main(int argc, char **argv) {
-  // Check if there any command-line arguments passed 
-  if (argc > 1) {
-    // Call function to handle command-line options and arguments 
+  // Check if there any command-line arguments passed
+  if ( argc > 1) {
+    // Call function to handle command-line options and arguments
     commandOption(argc, argv);
   }
 
+  userDatabase database;
   // Check if the user is not a new user
-  if (!newUserFlag) {
-    // Display a message for old user
+  if (!database.newUserFlag) {
+    // Display a message if a new user
     std::cout << "Hello Old User\n";
   }
 

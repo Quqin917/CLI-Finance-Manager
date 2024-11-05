@@ -1,32 +1,43 @@
+# Check if Directory and FIle exists in project
+if [ ! -d build ]; then
+  mkdir build
+fi
+
+if [ ! -d database ]; then
+  mkdir database
+fi
+
+if [ ! -f database/user_data.json ]; then
+  touch database/user_data.json
+fi
+
 # Make Variable for path
-SRC_DIR="src"
+INPUT_OUTPUT_SRC="src/input_output.cpp"
+INPUT_OUTPUT_BUILD="build/input_output.o"
+
+USER_SRC="src/user.cpp"
+USER_BUILD="build/user.o"
+
+OPTION_SRC="src/option.cpp"
+OPTION_BUILD="build/option.o"
+
 INC_DIR="include"
 LIB_DIR="library"
+
 BUILD_DIR="build"
 DATABASE_DIR="database"
 
-if [ ! -d $BUILD_DIR ]; then
-  mkdir $BUILD_DIR
-fi
-
-if [ ! -d $DATABASE_DIR ]; then
-  mkdir $DATABASE_DIR
-fi
-
-if [ ! -f $DATABASE_DIR/user_data.json ]; then
-  echo -n >$DATABASE_DIR/user_data.json
-fi
-
 # Compile the object file
-g++ -c $SRC_DIR/input_output.cpp -I./$INC_DIR -o $BUILD_DIR/input_output.o
-g++ -c $SRC_DIR/user.cpp -I./$INC_DIR -I./$LIB_DIR -o $BUILD_DIR/user.o
-g++ -c $SRC_DIR/option.cpp -I./$INC_DIR -o $BUILD_DIR/option.o
+clang++ -I$INC_DIR -c $INPUT_OUTPUT_SRC -o $INPUT_OUTPUT_BUILD
+clang++ -I$INC_DIR -I$LIB_DIR -c $USER_SRC -o $USER_BUILD
+clang++ -I$INC_DIR -c $OPTION_SRC -o $OPTION_BUILD
 
-# Create the shared library
-g++ -shared -o myLibrary.dll $BUILD_DIR/input_output.o $BUILD_DIR/user.o $BUILD_DIR/option.o
+# Create the static library
+ar rcs -o $BUILD_DIR/libstatic.so $INPUT_OUTPUT_BUILD $USER_BUILD $OPTION_BUILD
 
 # Compile main program and link with shared library
-g++ main.cpp -L. -lmyLibrary -I./$INC_DIR -o finman.exe
+clang++ main.cpp -I$INC_DIR -L./$BUILD_DIR -lstatic -o finman
 
 # Wait user to press a key before exiting
-read -p "Enter any key to exit..."
+echo "Script completed succesfully."
+read -p "Enter any key to exit..." input

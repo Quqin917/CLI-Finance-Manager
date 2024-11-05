@@ -15,12 +15,10 @@
 */
 
 // Function to store username and password into a json file
-userDatabase::userDatabase( const std::string& _username, const std::string& _password )
-  : username { _username }
-  , password { _password } {
+void userDatabase::inputUserVal( const std::string& _username, const std::string& _password ) const {
     // Define the data that going to be inserted into a json file
     nlohmann::ordered_json data = {
-      {username, {
+      {_username, {
           {"password", _password},
           {"active", true}
       }}

@@ -15,11 +15,11 @@ void printHelp(char *arg, bool programExit = false) {
 }
 
 // Function to handle command-line options and arguments
-void commandOption(int argc, char **argv) {
+void commandOption(int argc, char** argv) {
   int c;  // Variable to store the option character
 
-  // Check if there are too many arguments
-  if (argc > 5) {
+  // Check if there are too many arguments and check if the first character have a dash
+  if (argc > 5 || argv[1][0] != '-') {
     // Display help and exit the program
     printHelp(argv[ 0 ], true);
   }
@@ -42,6 +42,7 @@ void commandOption(int argc, char **argv) {
       break;
     }
 
+    userDatabase database;
     // Handle each option
     switch (c) {
       case 'h':
@@ -51,15 +52,15 @@ void commandOption(int argc, char **argv) {
 
       case 'n':
         // If new user option is selected, set newUserFlag to true
-        newUserFlag = true;
+        database.newUserFlag = true;
 
         // If no additional arguments, prompt user for input
         if (optind >= argc) {
-          const userDatabase database{ getUserInput("Username: "), getPassword("Password: ")};
+          database.inputUserVal( getUserInput("Username: "), getPassword("Password: ") );
 
         // If two arguments are provided, use them for username and password
         } else if ( (argc - optind) == 2 ) {
-          const userDatabase database{ argv[optind++], argv[optind++] };
+          database.inputUserVal( argv[optind], argv[optind + 1] );
 
         // If arguments are missing or extra, display help and exit
         } else {
@@ -69,11 +70,8 @@ void commandOption(int argc, char **argv) {
 
       // Handle unknown options
       case '?':
-        fprintf(stderr, "Unknown Option '-%c'.\n", optopt);
         exit(EXIT_FAILURE);
 
-      default:
-        abort();
     }
   }
 
