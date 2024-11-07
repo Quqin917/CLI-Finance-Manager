@@ -1,9 +1,9 @@
 #include "option.h"
 
 // Function to display the help screen
-void printHelp(char *arg, bool programExit = false) {
+void printHelp( bool programExit = false) {
   // Print usage information and available options
-  printf("Usage: %s [OPTIONS]\n", arg);
+  printf("Usage: ./finman [OPTIONS]\n");
   printf("Options:\n");
   printf("  -n, --new [username password]  Create a new user with optional username and password\n");
   printf("  -h, --help                     Display this help menu\n");
@@ -18,10 +18,10 @@ void printHelp(char *arg, bool programExit = false) {
 void commandOption(int argc, char **argv) {
   int c;  // Variable to store the option character
 
-  // Check if there are too many arguments
-  if (argc > 5) {
+  // Check if there are too many arguments and check if the first character is a dash
+  if (argc > 5 || argv[1][0] != '-') {
     // Display help and exit the program
-    printHelp(argv[ 0 ], true);
+    printHelp( true );
   }
 
   // Loop to parse command-line options
@@ -46,7 +46,7 @@ void commandOption(int argc, char **argv) {
     switch (c) {
       case 'h':
         // If help is selected, display help
-        printHelp(argv[ 0 ]);
+        printHelp();
         break;
 
       case 'n':
@@ -63,7 +63,7 @@ void commandOption(int argc, char **argv) {
 
         // If arguments are missing or extra, display help and exit
         } else {
-          printHelp(argv[ 0 ], true);
+          printHelp( true );
         }
         break;
 

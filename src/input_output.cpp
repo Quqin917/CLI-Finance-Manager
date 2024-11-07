@@ -11,8 +11,6 @@ std::string getUserInput( const std::string& prompt ) {
   return input;
 }
 
-#ifdef _WIN32
-
 // Function to get password input from windows, hiding characters as they're typed
 std::string getPassword( const std::string& prompt ) {
   DWORD mode = 0;
@@ -32,12 +30,3 @@ std::string getPassword( const std::string& prompt ) {
   
   return input;
 }
-
-#else if __linux__
-
-// Function to ge password input from linux, hiding characters as they're typed
-std::string getPassword( const std::string& prompt ) {
-  
-}
-
-#endif

@@ -1,19 +1,9 @@
 #ifndef INPUT_OUTPUT_H_
 #define INPUT_OUTPUT_H_
 
-// Check if the machine OS window or linux 
-#ifdef _WIN32
-
-#include <windows.h>
-
-#else if __linux__
-
-#include <termios.h>
-
-#endif
-
 #include <iostream>
 #include <string>
+#include <windows.h>
 
 // Function to get user input with a prompt
 std::string getUserInput( const std::string& prompt );
