@@ -1,7 +1,6 @@
 #include "input_output.h"
 #include "user.h"
 #include "option.h"
-#include <iostream>
 
 /* 
  *  1. User input
@@ -26,13 +25,14 @@ int main(int argc, char **argv) {
   if (argc > 1) {
     // Call function to handle command-line options and arguments 
     commandOption(argc, argv);
+  
+  // If user doesn't input other argument
+  } else {
+    // Ask for username and input to check if user have a account
+    userDatabase user { getUserInput<std::string>("Username: "), getPassword("Password: ") };
   }
 
-  // Check if the user is not a new user
-  if (!newUserFlag) {
-    // Display a message for old user
-    std::cout << "Hello Old User\n";
-  }
+
 
   return 0;
 }

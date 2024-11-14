@@ -50,18 +50,23 @@ void commandOption(int argc, char **argv) {
         break;
 
       case 'n':
-        // If new user option is selected, set newUserFlag to true
-        newUserFlag = true;
-
+        std::cout << "Hello New User\n";
+        
         // If no additional arguments, prompt user for input
         if (optind >= argc) {
-          const userDatabase database{ getUserInput("Username: "), getPassword("Password: ")};
+          // ask username and password
+          userDatabase database{ getUserInput<std::string>("Username: "), getPassword("Password: ") };
+
+          newUserQuestion( database );
 
         // If two arguments are provided, use them for username and password
         } else if ( (argc - optind) == 2 ) {
-          const userDatabase database{ argv[optind++], argv[optind++] };
+          // insert the provided username and password
+          userDatabase database{ argv[optind++], argv[optind++] };
 
-        // If arguments are missing or extra, display help and exit
+          newUserQuestion( database );
+
+        // If arguments are missing or have an extra argument, display help and exit
         } else {
           printHelp( true );
         }
@@ -69,8 +74,7 @@ void commandOption(int argc, char **argv) {
 
       // Handle unknown options
       case '?':
-        fprintf(stderr, "Unknown Option '-%c'.\n", optopt);
-        exit(EXIT_FAILURE);
+        break;
 
       default:
         abort();
