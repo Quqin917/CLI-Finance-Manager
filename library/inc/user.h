@@ -3,8 +3,10 @@
 
 #include "hash.h"
 #include "input_output.h"
-#include <iostream>
+#include "commandOption.h"
+#include <string>
 #include <fstream>
+#include <nlohmann/json.hpp>
 
 // Class that taking care of user information
 class userDatabase {
@@ -23,8 +25,8 @@ public:
 
 struct userSetup {
   std::string currency;
-  int earning;
-  std::string filePrivate;
+  int earning { 0 };
+  bool filePrivate;
 };
 
 // Function to handle settings up for new user

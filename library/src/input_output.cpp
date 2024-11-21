@@ -1,24 +1,5 @@
 #include "input_output.h"
 
-// Function to get user input with return value that can be determined
-template <typename T>
-T getUserInput( const std::string& prompt ) {
-  T result;
-  std::cout << prompt;
-
-  std::string input;
-  std::getline(std::cin, input);
-
-  std::stringstream inputStream(input);
-  inputStream >> result;
-
-  // Check if input type is valid
-  if ( inputStream.fail() || !inputStream.eof() ) {
-    throw std::runtime_error("Error Invalid Type.");
-  }
-
-  return result;
-}
 // Function to get password input from windows, hiding characters as they're typed
 std::string getPassword( const std::string& prompt ) {
   char censor { '*' };
@@ -39,3 +20,6 @@ std::string getPassword( const std::string& prompt ) {
   
   return input;
 }
+
+// Function to print
+// template

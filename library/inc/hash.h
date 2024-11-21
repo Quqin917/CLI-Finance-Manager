@@ -1,10 +1,9 @@
 #ifndef HASH_H_
 #define HASH_H_
 
-#include <iostream>
+#include "input_output.h"
 #include <numeric>
 #include <vector>
-#include <cmath>
 #include <random>
 #include <time.h>
 

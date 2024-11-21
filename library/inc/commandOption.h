@@ -1,10 +1,8 @@
-#ifndef OPTION_H_
-#define OPTION_H_
+#ifndef COMMANDOPTION_H_
+#define COMMANDOPTION_H_
 
-#include "user.h"
 #include "input_output.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "user.h"
 #include <getopt.h>
 
 // Function to handle command-line options and arguments

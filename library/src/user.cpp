@@ -1,7 +1,5 @@
 #include "user.h"
 
-#include <nlohmann/json.hpp>
-
 /*
  * 1. username and password
  *    1. if new user create new file
@@ -15,19 +13,19 @@
 */
 
 // Function to write data into a json file 
-void writeFile(nlohmann::ordered_json data) {
+void writeFile(nlohmann::ordered_json data, std::string& address) {
   // Open a json file for writing the data
-  std::ofstream file("database/user_data.json");
+  std::ofstream file(address);
 
   // Insert data into the json with a 2 space index beautification, then close file
   file << data.dump(2);
   file.close();
 }
 
-nlohmann::json readFile() {
+nlohmann::json readFile(std::string& address) {
   using json = nlohmann::json;
 
-  std::ifstream file("database/user_data.json");
+  std::ifstream file(address);
 
   json data = json::parse(file);
   return data;
@@ -40,6 +38,8 @@ userDatabase::userDatabase( const std::string& _username, const std::string& _pa
   , newUser  { _newUser  } 
   {
     nlohmann::ordered_json data;
+    std::string fileAddress = "${workspaceFolder}/database/user_data.json";
+
     // Check if user is a new user or old user
     if (_newUser) {
       // Define the data that going to be inserted into a json file
@@ -50,9 +50,9 @@ userDatabase::userDatabase( const std::string& _username, const std::string& _pa
         }}
       };
 
-    writeFile(data);
+    writeFile(data, fileAddress);
     } else {
-      nlohmann::json data { readFile() };
+      nlohmann::json data { readFile(fileAddress) };
       std::cout << data << '\n';
     }
 }
@@ -65,10 +65,28 @@ void newUserQuestion( userDatabase& database ) {
   user.currency = getUserInput<std::string>("Currency: ");
 
   // Ask user for monthly earning
-  // user.earning = getUserInput<int>("Monthly Earning: ");
+  user.earning = getUserInput<int>("Monthly Earning: ");
 
   // Ask user if finance file want to be private
-  while (user.filePrivate != "yes" || user.filePrivate != "no") {
-    user.filePrivate = getUserInput<std::string>("Private File (yes, no): ") ;
-  }
+  int stop = 0;
+  do {
+    std::string trueFalse { getUserInput<std::string>("File Private(yes, no): ") };
+
+    for ( auto& c : trueFalse ) {
+      c = tolower(c);
+    }
+
+    if ( trueFalse.compare("y") == 0 || trueFalse.compare("yes") == 0 ) {
+      user.filePrivate = true;
+      stop = 1;
+    } else if ( trueFalse.compare("n") == 0 || trueFalse.compare("no") == 0 ){
+      user.filePrivate = false;
+      stop = 1;
+    }
+
+  } while ( stop == 0 );
+
+  // std::cout << user.currency << '\n';
+  // std::cout << user.earning << '\n';
+  // std::cout << user.filePrivate << '\n';
 }

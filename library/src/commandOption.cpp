@@ -1,4 +1,4 @@
-#include "option.h"
+#include "commandOption.h"
 
 // Function to display the help screen
 void printHelp( bool programExit = false) {

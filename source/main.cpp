@@ -1,6 +1,4 @@
-#include "input_output.h"
 #include "user.h"
-#include "option.h"
 
 /* 
  *  1. User input
@@ -28,11 +26,14 @@ int main(int argc, char **argv) {
   
   // If user doesn't input other argument
   } else {
-    // Ask for username and input to check if user have a account
+    // Ask for username and password then check if user have a account
     userDatabase user { getUserInput<std::string>("Username: "), getPassword("Password: ") };
+
+    key hash;
+    hash.calculateNValue(61, 57);
+    hash.totient();
+    hash.show();
   }
-
-
 
   return 0;
 }
