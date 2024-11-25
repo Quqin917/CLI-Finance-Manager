@@ -12,48 +12,40 @@
  *    1. decypher old file
 */
 
-// Function to write data into a json file 
-void writeFile(nlohmann::ordered_json data, std::string& address) {
-  // Open a json file for writing the data
-  std::ofstream file(address);
-
-  // Insert data into the json with a 2 space index beautification, then close file
-  file << data.dump(2);
-  file.close();
-}
-
-nlohmann::json readFile(std::string& address) {
+void readFile( const std::string& address, const std::string& user) {
   using json = nlohmann::json;
 
   std::ifstream file(address);
 
   json data = json::parse(file);
-  return data;
+  if (data.is_null()) {
+    exit(EXIT_FAILURE);
+  }
 }
 
 // Function to store username and password into a json file 
 userDatabase::userDatabase( const std::string& _username, const std::string& _password, bool _newUser )
-  : username { _username }
-  , password { _password }
-  , newUser  { _newUser  } 
+  : m_username { _username }
+  , m_password { _password }
+  , m_newUser  { _newUser  }
   {
-    nlohmann::ordered_json data;
-    std::string fileAddress = "${workspaceFolder}/database/user_data.json";
+    const std::string fileAddress = "../database/user_data.json";
 
     // Check if user is a new user or old user
     if (_newUser) {
       // Define the data that going to be inserted into a json file
-      data = {
-        {username, {
-            {"password", _password},
-            {"active", true}
-        }}
-      };
+      nlohmann::ordered_json data;
+      
+      data[_username] = { { "password", _password }, { "active", true } };
 
-    writeFile(data, fileAddress);
+      // Open a json file for writing the data
+      std::ofstream file(fileAddress);
+
+      // Insert data into the json with a 2 space index beautification, then close file
+      file << data.dump(2);
+      file.close();
     } else {
-      nlohmann::json data { readFile(fileAddress) };
-      std::cout << data << '\n';
+      readFile(fileAddress, _username);
     }
 }
 
@@ -70,23 +62,22 @@ void newUserQuestion( userDatabase& database ) {
   // Ask user if finance file want to be private
   int stop = 0;
   do {
-    std::string trueFalse { getUserInput<std::string>("File Private(yes, no): ") };
+    std::string trueFalse { getUserInput<std::string>("File Private (yes, no): ") };
 
     for ( auto& c : trueFalse ) {
       c = tolower(c);
     }
 
     if ( trueFalse.compare("y") == 0 || trueFalse.compare("yes") == 0 ) {
-      user.filePrivate = true;
+      user.filePrivate = "yes";
       stop = 1;
     } else if ( trueFalse.compare("n") == 0 || trueFalse.compare("no") == 0 ){
-      user.filePrivate = false;
+      user.filePrivate = "no";
       stop = 1;
     }
-
   } while ( stop == 0 );
 
-  // std::cout << user.currency << '\n';
-  // std::cout << user.earning << '\n';
-  // std::cout << user.filePrivate << '\n';
+  std::cout << user.currency << '\n';
+  std::cout << user.earning << '\n';
+  std::cout << user.filePrivate << '\n';
 }

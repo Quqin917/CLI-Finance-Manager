@@ -1,12 +1,16 @@
 ## Establish Main Executable ##
 
+## Set Custom Variable
+
 set(mainSource
   main.cpp
 )
 
+## Establish library ##
+
 add_executable(${main_executable} ${mainSource})
 
-## Target Library ##
+## Target Library and include folder
 
 target_include_directories(${main_executable}
 PUBLIC
@@ -15,7 +19,7 @@ PUBLIC
 )
 
 target_link_libraries(${main_executable} 
-PRIVATE
+PUBLIC
   ${library_name}
   nlohmann_json::nlohmann_json
 )

@@ -3,25 +3,24 @@
 
 #include <iostream>
 #include <string>
-#include <windows.h>
+#include <sstream>
 
-template <typename T>
-T getUserInput( const std::string& prompt) {
-  std::cout << prompt;
+#ifdef _WIN32
+  #include <windows.h>
 
-  T input;
-  std::cin >> input;
-  
-  return input;
-}
+#elif __linux__
+  #include <termios.h>
+  #include <unistd.h>
 
+#endif
 
 // Function to get password input, hiding characters as they're typed
 std::string getPassword( const std::string& prompt );
 
+// Function to get user input 
 template <typename T>
-T print(T prompt) {
-  std::cout << prompt << '\n';
-}
+T getUserInput( const std::string& prompt );
+
+#include "input_output.tpp"
 
 #endif

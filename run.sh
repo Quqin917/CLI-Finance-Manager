@@ -17,4 +17,4 @@ if [ ! -f $USER_DATA ]; then
   echo -n >$USER_DATA
 fi
 
-cd build
+echo "DONE"

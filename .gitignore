@@ -31,9 +31,11 @@
 *.out
 *.app
 
+# Ignore Folder and Files
 build
 database
 .vscode/*
 
 # Don't ignore this file
 !.vscode/settings.json
+!.vscode/c_cpp_properties.json

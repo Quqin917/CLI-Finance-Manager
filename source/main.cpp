@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
   // If user doesn't input other argument
   } else {
     // Ask for username and password then check if user have a account
-    userDatabase user { getUserInput<std::string>("Username: "), getPassword("Password: ") };
+    userDatabase user { getUserInput<std::string>("Username: "), getPassword("Password: "), false };
 
     key hash;
     hash.calculateNValue(61, 57);

@@ -1,5 +1,7 @@
 ## Establish Library ##
 
+## Set Custom Variable
+
 set(libraryFiles
   src/input_output.cpp
   src/commandOption.cpp
@@ -7,9 +9,11 @@ set(libraryFiles
   src/user.cpp
 )
 
+## Establish library ##
+
 add_library(${library_name} STATIC ${libraryFiles})
 
-## Target include directory ##
+## Target include directory
 
 target_include_directories(${library_name} 
 PUBLIC
